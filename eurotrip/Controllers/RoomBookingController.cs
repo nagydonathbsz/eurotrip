@@ -19,7 +19,7 @@ namespace eurotrip.Controllers
         }
 
         [Authorize(Policy = "RoomBooking.Read")]
-        [HttpGet]
+        [HttpGet] //
         public async Task<IActionResult> GetBookingList()
         {
             var list = await _context.RoomBookings.ToListAsync();
