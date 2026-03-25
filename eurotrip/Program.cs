@@ -23,6 +23,8 @@ namespace eurotrip
             builder.Services.AddDbContext<EuroContext>(options =>
                 options.UseMySQL(connectionString));
 
+            //teszt
+
             // 2. CORS BEÁLLÍTÁSA (A React eléréséhez)
             builder.Services.AddCors(options =>
             {
