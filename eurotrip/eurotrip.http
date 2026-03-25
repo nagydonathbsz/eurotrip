@@ -1,0 +1,6 @@
+@eurotrip_HostAddress = http://localhost:5177
+
+GET {{eurotrip_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
