@@ -21,9 +21,9 @@ namespace eurotrip.Controllers
         [HttpGet("restaurant/{id}")]
         public async Task<IActionResult> GetTableListByRestaurantId(int id)
         {
-            RestaurantTable? rt = await _context.RestaurantTables.FirstOrDefaultAsync(m => m.RestaurantId == id);
-            if (rt == null) return NotFound();
-            return Ok(rt);
+            var list = await _context.RestaurantTables.Where(m => m.RestaurantId == id).ToListAsync();
+            if (!list.Any()) return NotFound();
+            return Ok(list);
         }
         [Authorize(Policy = "RestaurantTable.Create")]
         [HttpPost]

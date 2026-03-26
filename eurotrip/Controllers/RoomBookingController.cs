@@ -26,11 +26,13 @@ namespace eurotrip.Controllers
             return Ok(list);
         }
         [Authorize(Policy = "RoomBooking.ReadMe")]
-        [HttpGet]
+        [HttpGet("me")]
         public async Task<IActionResult> GetMyBookingList()
         {
-            var me = await _context.Users.FirstOrDefaultAsync(m => m.Token != null);
-            var list = me?.RBs?.Where(m => m.UserId == me.Id).ToList();
+            var email = User.FindFirst(System.Security.Claims.ClaimTypes.Name)?.Value;
+            if (email == null) return Unauthorized();
+            var me = await _context.Users.Include(u => u.RBs).FirstOrDefaultAsync(u => u.Email == email);
+            var list = me?.RBs?.ToList();
             return Ok(list);
         }
         [Authorize(Policy = "RoomBooking.ReadId")]
@@ -41,8 +43,8 @@ namespace eurotrip.Controllers
             if (rb == null) return NotFound();
             return Ok(rb);
         }
-        [Authorize(Policy = "RoomBooking.ReadStaus")]
-        [HttpGet("{id}")]
+        [Authorize(Policy = "RoomBooking.ReadStatus")]
+        [HttpGet("{id}/status")]
         public async Task<IActionResult> GetBookingListStatus(int id)
         {
             RoomBooking? rb = await _context.RoomBookings.FirstOrDefaultAsync(m => m.Id == id);

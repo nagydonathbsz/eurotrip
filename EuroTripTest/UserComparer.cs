@@ -13,8 +13,7 @@ namespace EuroTripTest
                x?.Email == y?.Email &&
                x?.Phone == y?.Phone &&
                x?.Password == y?.Password &&
-               x?.isAdmin == y?.isAdmin &&
-               x?.Token==y?.Token;
+               x?.isAdmin == y?.isAdmin;
         }
 
         public int GetHashCode([DisallowNull] User obj)

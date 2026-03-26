@@ -36,9 +36,9 @@ namespace eurotrip.Controllers
         [HttpGet("country/{id}")]
         public async Task<IActionResult> GetCityListByCountryId(int id)
         {
-            City? city = await _context.Cities.FirstOrDefaultAsync(m => m.CountryId == id);
-            if (city == null) return NotFound();
-            return Ok(city);
+            var list = await _context.Cities.Where(m => m.CountryId == id).ToListAsync();
+            if (!list.Any()) return NotFound();
+            return Ok(list);
         }
     }
 }

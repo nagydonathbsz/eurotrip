@@ -1,4 +1,4 @@
-﻿namespace BajnoksagApi.DTO
+﻿namespace eurotrip.Modell
 {
     public class LoginRequestData
     {

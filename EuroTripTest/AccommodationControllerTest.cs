@@ -71,11 +71,15 @@ namespace EuroTripTest
         [TestMethod]
         public async Task GetAccommodationListByCityId_OkAccommodationListByCityId()
         {
-            var result = (await _sut!.GetAccommodationListById(1)) as OkObjectResult;
+            var result = (await _sut!.GetAccommodationListByCityId(1)) as OkObjectResult;
             Assert.IsNotNull(result);
-            var u = result.Value as Accommodation;
-            Assert.IsNotNull(u);
-            Assert.IsTrue(_db.AccommodationList.Contains(u, new AccommodationComparer()));
+            var list = result.Value as IEnumerable<Accommodation>;
+            Assert.IsNotNull(list);
+            Assert.IsTrue(list.Any());
+            foreach (var u in list)
+            {
+                Assert.IsTrue(_db.AccommodationList.Contains(u, new AccommodationComparer()));
+            }
         }
         [TestMethod]
         public async Task GetAccommodationListByCityId_NonExistingId_ShouldReturnNotFound()

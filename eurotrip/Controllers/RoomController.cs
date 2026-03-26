@@ -35,7 +35,7 @@ namespace eurotrip.Controllers
             return Ok(room);
         }
         [Authorize(Policy = "Room.ReadAccoId")]
-        [HttpGet("{accoId}")]
+        [HttpGet("acco/{accoId}")]
         public async Task<IActionResult> GetRoomListByAccoId(int accoId)
         {
             Accommodation? acco = await _context.Accommodations.FirstOrDefaultAsync(m => m.Id == accoId);

@@ -79,11 +79,14 @@ namespace eurotrip.Controllers
         [HttpPut("me")]
         public async Task<IActionResult> PutUser(User user)
         {
-            var oldUser = await _context.Users.FirstOrDefaultAsync(p => p.Token != null);
+            var email = User.FindFirst(System.Security.Claims.ClaimTypes.Name)?.Value;
+            if (email == null) return Unauthorized();
+            var oldUser = await _context.Users.FirstOrDefaultAsync(p => p.Email == email);
             if (oldUser == null) return NotFound();
             oldUser.Name = user.Name;
             oldUser.Email = user.Email;
-            oldUser.Password = PasswordHandler.HashPassword(user.Password);
+            if (!string.IsNullOrWhiteSpace(user.Password))
+                oldUser.Password = PasswordHandler.HashPassword(user.Password);
             oldUser.Phone = user.Phone;
             await _context.SaveChangesAsync();
             return Ok(oldUser);

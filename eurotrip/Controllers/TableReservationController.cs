@@ -26,18 +26,20 @@ namespace eurotrip.Controllers
             return Ok(list);
         }
         [Authorize(Policy = "TableReservation.ReadMe")]
-        [HttpGet]
+        [HttpGet("me")]
         public async Task<IActionResult> GetMyTableReservationList()
         {
-            var me = await _context.Users.FirstOrDefaultAsync(m => m.Token != null);
-            var list = me?.TRs?.Where(m => m.UserId == me.Id).ToList();
+            var email = User.FindFirst(System.Security.Claims.ClaimTypes.Name)?.Value;
+            if (email == null) return Unauthorized();
+            var me = await _context.Users.Include(u => u.TRs).FirstOrDefaultAsync(u => u.Email == email);
+            var list = me?.TRs?.ToList();
             return Ok(list);
         }
         [Authorize(Policy = "TableReservation.ReadIdAvailable")]
         [HttpGet("{restId}")]
-        public async Task<IActionResult> GetTableReservationById_IsAvailable(int id)
+        public async Task<IActionResult> GetTableReservationById_IsAvailable(int restId)
         {
-            var rt = await _context.TableReservations.FirstOrDefaultAsync(m => m.Id == id);
+            var rt = await _context.TableReservations.FirstOrDefaultAsync(m => m.Id == restId);
             if (rt == null) return NotFound();
             return Ok(rt.Status?.ToString());
         }

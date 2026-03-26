@@ -8,7 +8,7 @@ namespace EuroTripTest
     internal class DbContextHelper
     {
         public List<User> UserList = [
-                 new User { Id = 1, Name = "Albert", Email = "a", Phone="06", Password="al", isAdmin=0, Token="hgkjgdguj"},
+                 new User { Id = 1, Name = "Albert", Email = "a", Phone="06", Password="al", isAdmin=0},
                  new User { Id = 2, Name = "Bertha", Email = "b", Phone="06", Password="be", isAdmin=0 },
                  new User { Id = 3, Name = "Ceasar", Email = "c", Phone="06", Password="ce", isAdmin=0 }
             ];

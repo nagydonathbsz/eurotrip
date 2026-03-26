@@ -1,8 +1,6 @@
-﻿using BajnoksagApi.DTO;
-using eurotrip.Auth;
+﻿using eurotrip.Auth;
 using eurotrip.Modell;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
@@ -29,7 +27,6 @@ namespace eurotrip.Controllers
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == ue.UserId);
             if (user == null || !PasswordHandler.VerifyPassword(ue.Password, user.Password)) return Unauthorized();
             var token = _tokenManager.GenerateToken(user);
-            await _context.SaveChangesAsync();
             return Ok(token);
         }
 
@@ -37,12 +34,6 @@ namespace eurotrip.Controllers
         [HttpDelete("logout")]
         public async Task<IActionResult> Logout()
         {
-            var email = User.FindFirst(ClaimTypes.Name)?.Value;
-            if (string.IsNullOrEmpty(email)) return Unauthorized();
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
-            if (user == null) return Unauthorized();
-            user.Token = null;
-            await _context.SaveChangesAsync();
             return Ok();
         }
     }
