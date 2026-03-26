@@ -31,6 +31,7 @@ namespace eurotrip.Controllers
             if (acco == null) return NotFound();
             return Ok(acco);
         }
+        [AllowAnonymous]
         [HttpGet("city/{id}")]
         public async Task<IActionResult> GetAccommodationListByCityId(int id)
         {

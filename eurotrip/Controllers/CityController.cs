@@ -26,6 +26,7 @@ namespace eurotrip.Controllers
                 .ToListAsync();
             return Ok(list);
         }
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCityListById(int id)
         {
@@ -33,6 +34,7 @@ namespace eurotrip.Controllers
             if (city == null) return NotFound();
             return Ok(city);
         }
+        [AllowAnonymous]
         [HttpGet("country/{id}")]
         public async Task<IActionResult> GetCityListByCountryId(int id)
         {
