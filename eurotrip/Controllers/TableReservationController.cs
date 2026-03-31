@@ -54,6 +54,12 @@ namespace eurotrip.Controllers
         [HttpPost]
         public async Task<IActionResult> PostTableReservation([FromBody] TableReservation tr)
         {
+            bool overlap = await _context.TableReservations.AnyAsync(r =>
+                r.TableId == tr.TableId &&
+                r.ReservationStart < tr.ReservationEnd &&
+                r.ReservationEnd > tr.ReservationStart);
+            if (overlap) return Conflict("Ez az asztal már foglalt a megadott időpontra.");
+
             tr.Status = "booked";
             tr.CreatedAt = DateTime.UtcNow;
             _context.TableReservations.Add(tr);

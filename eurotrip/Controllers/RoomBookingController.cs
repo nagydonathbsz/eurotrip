@@ -64,6 +64,12 @@ namespace eurotrip.Controllers
         {
             if (rb?.UserId == null || rb?.RoomId==null) { return BadRequest("Missing data"); }
 
+            bool overlap = await _context.RoomBookings.AnyAsync(b =>
+                b.RoomId == rb.RoomId &&
+                b.CheckIn < rb.CheckOut &&
+                b.CheckOut > rb.CheckIn);
+            if (overlap) return Conflict("Ez a szoba már foglalt a megadott időszakra.");
+
             rb.Status = "booked";
             rb.CreatedAt = DateTime.UtcNow;
             _context.RoomBookings.Add(rb);
