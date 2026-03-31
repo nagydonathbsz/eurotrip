@@ -20,10 +20,10 @@ namespace eurotrip.Modell
         [ForeignKey(nameof(TableId))]
         public RestaurantTable? Table { get; set; }
 
-        [Column("reservation_date")]
-        public DateTime ResDate { get; set; }
-        [Column("reservation_time")]
-        public DateTime? ResTime { get; set; }
+        [Column("reservation_start")]
+        public DateTime ReservationStart { get; set; }
+        [Column("reservation_end")]
+        public DateTime ReservationEnd { get; set; }
         [Column("created_at")]
         public DateTime CreatedAt { get; set; }
         [Column("status")]

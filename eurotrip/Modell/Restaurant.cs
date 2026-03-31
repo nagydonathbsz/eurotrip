@@ -19,6 +19,8 @@ namespace eurotrip.Modell
         public string? Phone { get; set; }
         [Column("city_id")]
         public int CityId { get; set; }
+        [Column("rating")]
+        public decimal Rating { get; set; }
         [ForeignKey(nameof(CityId))]
         public City? City { get; set; }
         public ICollection<RestaurantTable>? Tables { get; set; }

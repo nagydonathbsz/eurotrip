@@ -38,10 +38,10 @@ namespace eurotrip.Controllers
         [HttpGet("acco/{accoId}")]
         public async Task<IActionResult> GetRoomListByAccoId(int accoId)
         {
-            Accommodation? acco = await _context.Accommodations.FirstOrDefaultAsync(m => m.Id == accoId);
-            if (acco == null) return NotFound();
-            var room = acco?.Rooms?.ToList();
-            return Ok(room);
+            bool exists = await _context.Accommodations.AnyAsync(m => m.Id == accoId);
+            if (!exists) return NotFound();
+            var rooms = await _context.Rooms.Where(r => r.AccommodationId == accoId).ToListAsync();
+            return Ok(rooms);
         }
 
         [Authorize(Policy = "Room.Create")]

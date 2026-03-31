@@ -31,8 +31,14 @@ namespace eurotrip.Controllers
         {
             var email = User.FindFirst(System.Security.Claims.ClaimTypes.Name)?.Value;
             if (email == null) return Unauthorized();
-            var me = await _context.Users.Include(u => u.RBs).FirstOrDefaultAsync(u => u.Email == email);
-            var list = me?.RBs?.ToList();
+            var me = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (me == null) return Unauthorized();
+            var list = await _context.RoomBookings
+                .Include(rb => rb.Room)
+                    .ThenInclude(r => r.Accommodation)
+                        .ThenInclude(a => a.City)
+                .Where(rb => rb.UserId == me.Id)
+                .ToListAsync();
             return Ok(list);
         }
         [Authorize(Policy = "RoomBooking.ReadId")]
@@ -58,6 +64,8 @@ namespace eurotrip.Controllers
         {
             if (rb?.UserId == null || rb?.RoomId==null) { return BadRequest("Missing data"); }
 
+            rb.Status = "booked";
+            rb.CreatedAt = DateTime.UtcNow;
             _context.RoomBookings.Add(rb);
             await _context.SaveChangesAsync();
 

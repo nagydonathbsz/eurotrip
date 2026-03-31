@@ -31,8 +31,14 @@ namespace eurotrip.Controllers
         {
             var email = User.FindFirst(System.Security.Claims.ClaimTypes.Name)?.Value;
             if (email == null) return Unauthorized();
-            var me = await _context.Users.Include(u => u.TRs).FirstOrDefaultAsync(u => u.Email == email);
-            var list = me?.TRs?.ToList();
+            var me = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (me == null) return Unauthorized();
+            var list = await _context.TableReservations
+                .Include(tr => tr.Table)
+                    .ThenInclude(t => t.Restaurant)
+                        .ThenInclude(r => r.City)
+                .Where(tr => tr.UserId == me.Id)
+                .ToListAsync();
             return Ok(list);
         }
         [Authorize(Policy = "TableReservation.ReadIdAvailable")]
@@ -48,6 +54,8 @@ namespace eurotrip.Controllers
         [HttpPost]
         public async Task<IActionResult> PostTableReservation([FromBody] TableReservation tr)
         {
+            tr.Status = "booked";
+            tr.CreatedAt = DateTime.UtcNow;
             _context.TableReservations.Add(tr);
             await _context.SaveChangesAsync();
 
