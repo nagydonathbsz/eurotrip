@@ -8,6 +8,7 @@ namespace eurotrip.Modell
     public class RoomBooking
     {
         [Column("booking_id")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Column("user_id")]
         public int? UserId { get; set; }

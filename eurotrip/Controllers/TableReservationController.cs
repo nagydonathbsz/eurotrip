@@ -54,6 +54,12 @@ namespace eurotrip.Controllers
         [HttpPost]
         public async Task<IActionResult> PostTableReservation([FromBody] TableReservation tr)
         {
+            var now = DateTime.UtcNow;
+            if (tr.ReservationStart < now)
+                return BadRequest("A foglalás nem lehet a múltban.");
+            if (tr.ReservationStart > now.AddMonths(6))
+                return BadRequest("A foglalás legfeljebb 6 hónapra előre lehetséges.");
+
             bool overlap = await _context.TableReservations.AnyAsync(r =>
                 r.TableId == tr.TableId &&
                 r.ReservationStart < tr.ReservationEnd &&

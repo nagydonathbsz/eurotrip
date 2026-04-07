@@ -64,6 +64,12 @@ namespace eurotrip.Controllers
         {
             if (rb?.UserId == null || rb?.RoomId==null) { return BadRequest("Missing data"); }
 
+            var now = DateTime.UtcNow.Date;
+            if (rb.CheckIn.HasValue && rb.CheckIn.Value.Date < now)
+                return BadRequest("A foglalás nem lehet a múltban.");
+            if (rb.CheckIn.HasValue && rb.CheckIn.Value.Date > now.AddMonths(6))
+                return BadRequest("A foglalás legfeljebb 6 hónapra előre lehetséges.");
+
             bool overlap = await _context.RoomBookings.AnyAsync(b =>
                 b.RoomId == rb.RoomId &&
                 b.CheckIn < rb.CheckOut &&
