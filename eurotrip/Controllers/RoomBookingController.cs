@@ -62,18 +62,23 @@ namespace eurotrip.Controllers
         [HttpPost]
         public async Task<IActionResult> PostBooking([FromBody] RoomBooking rb)
         {
-            if (rb?.UserId == null || rb?.RoomId==null) { return BadRequest("Missing data"); }
+            if (rb?.UserId == null || rb?.RoomId == null || !rb.CheckIn.HasValue || !rb.CheckOut.HasValue)
+                return BadRequest("Missing data");
 
             var now = DateTime.UtcNow.Date;
-            if (rb.CheckIn.HasValue && rb.CheckIn.Value.Date < now)
+            if (rb.CheckIn.Value.Date < now)
                 return BadRequest("A foglalás nem lehet a múltban.");
-            if (rb.CheckIn.HasValue && rb.CheckIn.Value.Date > now.AddMonths(6))
+            if (rb.CheckIn.Value.Date > now.AddMonths(6))
                 return BadRequest("A foglalás legfeljebb 6 hónapra előre lehetséges.");
+
+            var checkIn = rb.CheckIn.Value;
+            var checkOut = rb.CheckOut.Value;
 
             bool overlap = await _context.RoomBookings.AnyAsync(b =>
                 b.RoomId == rb.RoomId &&
-                b.CheckIn < rb.CheckOut &&
-                b.CheckOut > rb.CheckIn);
+                b.CheckIn.HasValue && b.CheckOut.HasValue &&
+                b.CheckIn.Value < checkOut &&
+                b.CheckOut.Value > checkIn);
             if (overlap) return Conflict("Ez a szoba már foglalt a megadott időszakra.");
 
             rb.Status = "booked";
