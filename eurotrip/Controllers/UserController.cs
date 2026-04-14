@@ -75,6 +75,20 @@ namespace eurotrip.Controllers
 
             return Created($"{Request.GetDisplayUrl()}/{user.Id}", user);
         }
+        [Authorize]
+        [HttpDelete("me")]
+        public async Task<IActionResult> DeleteMe()
+        {
+            var email = User.FindFirst(System.Security.Claims.ClaimTypes.Name)?.Value;
+            if (email == null) return Unauthorized();
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null) return NotFound();
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
         [Authorize(Policy = "User.Update")]
         [HttpPut("me")]
         public async Task<IActionResult> PutUser(User user)
