@@ -70,7 +70,6 @@ namespace eurotrip.Controllers
             oldAcco.Name = acco.Name;
             oldAcco.Address = acco.Address;
             oldAcco.Image = acco.Image;
-            oldAcco.Phone = acco.Phone;
             oldAcco.CityId = acco.CityId;
             await _context!.SaveChangesAsync();
             return Ok(oldAcco);

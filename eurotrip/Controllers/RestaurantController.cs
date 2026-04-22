@@ -46,8 +46,7 @@ namespace eurotrip.Controllers
         public async Task<IActionResult> PostRestaurant([FromBody] Restaurant restaurant)
         {
             if (string.IsNullOrWhiteSpace(restaurant.Name) ||
-                string.IsNullOrWhiteSpace(restaurant.Address) ||
-                string.IsNullOrWhiteSpace(restaurant.Phone)) return BadRequest("Missing datas");
+                string.IsNullOrWhiteSpace(restaurant.Address)) return BadRequest("Missing datas");
             var m1 = await _context.Restaurants.FirstOrDefaultAsync(m => m.Name == restaurant.Name);
             if (m1 != null)
             {
@@ -71,7 +70,6 @@ namespace eurotrip.Controllers
             oldRestaurant.Name = restaurant.Name;
             oldRestaurant.Address = restaurant.Address;
             oldRestaurant.Image = restaurant.Image;
-            oldRestaurant.Phone = restaurant.Phone;
             oldRestaurant.CityId = restaurant.CityId;
             await _context.SaveChangesAsync();
             return Ok(oldRestaurant);

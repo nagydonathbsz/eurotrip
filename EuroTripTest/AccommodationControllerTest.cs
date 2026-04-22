@@ -148,7 +148,6 @@ namespace EuroTripTest
             {
                 Name = "Dalmás",
                 Address = "d",
-                Phone = "06",
                 Image = "d.png",
                 CityId = 1,
             };
@@ -164,7 +163,6 @@ namespace EuroTripTest
             {
                 Name = "",
                 Address = "d",
-                Phone = "06",
                 Image = "d.png",
                 CityId = 1,
             };
@@ -178,7 +176,6 @@ namespace EuroTripTest
             {
                 Name = "Dalmás",
                 Address = "d",
-                Phone = "06",
                 Image = "d.png",
                 CityId = 1,
             };
@@ -192,7 +189,6 @@ namespace EuroTripTest
             {
                 Name = "Dalmás",
                 Address = "d",
-                Phone = "06",
                 Image = "d.png",
                 CityId = 1,
             };
@@ -215,7 +211,6 @@ namespace EuroTripTest
             {
                 Name = "Test Hotel",
                 Address = "Test Street 1.",
-                Phone = "123456",
                 Image = "test.png",
                 CityId = 1
             };

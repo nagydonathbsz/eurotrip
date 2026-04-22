@@ -12,7 +12,6 @@ namespace EuroTripTest
                x?.Name == y?.Name &&
                x?.Address == y?.Address &&
                x?.Image == y?.Image &&
-               x?.Phone == y?.Phone &&
                x?.CityId == y?.CityId;
         }
 

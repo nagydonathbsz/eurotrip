@@ -13,8 +13,6 @@ namespace eurotrip.Modell
         public string? Name { get; set; }
         [Column("zip_code")]
         public int ZipCode { get; set; }
-        [Column("has_airport")]
-        public int HasAirport { get; set; }
         [Column("country_id")]
         public int CountryId { get; set; }
         [ForeignKey(nameof(CountryId))]

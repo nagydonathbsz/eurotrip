@@ -15,8 +15,6 @@ namespace eurotrip.Modell
         public string? Address { get; set; }
         [Column("image")]
         public string? Image { get; set; }
-        [Column("phone")]
-        public string? Phone { get; set; }
         [Column("city_id")]
         public int CityId { get; set; }
         [Column("rating")]

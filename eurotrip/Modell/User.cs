@@ -19,6 +19,8 @@ namespace eurotrip.Modell
         public string? Password { get; set; }
         [Column("is_admin")]
         public int isAdmin { get; set; }
+        [Column("token")]
+        public string? Token { get; set; }
         public ICollection<TableReservation>? TRs { get; set; }
         public ICollection<RoomBooking>? RBs { get; set; }
     }

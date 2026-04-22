@@ -80,7 +80,6 @@ namespace EuroTripTest
             {
                 Name = "DalmasRest",
                 Address = "d",
-                Phone = "06",
                 Image = "d.png",
                 CityId = 3,
             };
@@ -95,7 +94,6 @@ namespace EuroTripTest
             {
                 Name = "",
                 Address = "d",
-                Phone = "06",
                 Image = "d.png",
                 CityId = 1,
             };
@@ -110,7 +108,6 @@ namespace EuroTripTest
             {
                 Name = "AjkaRest",
                 Address = "a",
-                Phone = "06",
                 Image = "a.png",
                 CityId = 1,
             };
@@ -124,7 +121,6 @@ namespace EuroTripTest
             {
                 Name = "DalmásRest",
                 Address = "d",
-                Phone = "06",
                 Image = "d.png",
                 CityId = 1,
             };
@@ -140,7 +136,6 @@ namespace EuroTripTest
             {
                 Name = "",
                 Address = "d",
-                Phone = "06",
                 Image = "d.png",
                 CityId = 1,
             };
@@ -154,7 +149,6 @@ namespace EuroTripTest
             {
                 Name = "DalmásRest",
                 Address = "d",
-                Phone = "06",
                 Image = "d.png",
                 CityId = 1,
             };
@@ -169,7 +163,6 @@ namespace EuroTripTest
                 {
                     Name = "DalmásRest",
                     Address = "d",
-                    Phone = "06",
                     Image = "d.png",
                     CityId = 1,
                 };
@@ -193,7 +186,6 @@ namespace EuroTripTest
             {
                 Name = "Test Rest",
                 Address = "Test St 10",
-                Phone = "0670123",
                 Image = "test.png",
                 CityId = 1
             };

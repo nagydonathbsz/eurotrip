@@ -11,7 +11,6 @@ namespace EuroTripTest
                x?.Id == y?.Id &&
                x?.Name == y?.Name &&
                x?.ZipCode == y?.ZipCode &&
-               x?.HasAirport == y?.HasAirport &&
                x?.CountryId == y?.CountryId;
         }
 
