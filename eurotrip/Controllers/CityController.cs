@@ -20,7 +20,6 @@ namespace eurotrip.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCityList()
         {
-            // Az Include segítségével betöltjük a kapcsolódó ország adatokat is
             var list = await _context.Cities
                 .Include(c => c.Country)
                 .ToListAsync();

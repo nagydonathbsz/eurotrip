@@ -15,7 +15,6 @@ namespace eurotrip
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // 1. ADATBÁZIS KAPCSOLAT
             var connectionString = builder.Configuration.GetConnectionString("eurotrip");
             if (string.IsNullOrEmpty(connectionString))
                 throw new ArgumentNullException("Adatbázis csatlakozási karakterlánc hiányzik!");
@@ -23,36 +22,29 @@ namespace eurotrip
             builder.Services.AddDbContext<EuroContext>(options =>
                 options.UseMySQL(connectionString));
 
-            //teszt
 
-            // 2. CORS BEÁLLÍTÁSA (A React eléréséhez)
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowReact",
-                    policy => policy.WithOrigins("http://localhost:5173") // Ellenõrizd a portot!
+                    policy => policy.WithOrigins("http:
                                    .AllowAnyMethod()
                                    .AllowAnyHeader());
             });
 
-            // 3. AUTH ÉS TOKEN KEZELÉS
             var tokenManager = new TokenManager(builder.Configuration);
             builder.Services.AddSingleton(tokenManager);
 
             AddJwtAuthentication(builder, tokenManager);
 
-            // 4. KONTROLLEREK ÉS JSON FORMÁZÁS (camelCase kényszerítése a React miatt)
             builder.Services.AddControllers()
                 .AddJsonOptions(options =>
                 {
-                    // Ez alakítja át a backend "Id"-t a frontend "id"-vé a válaszokban
                     options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
-                    // Megakadályozza az objektum-ciklusokat (pl. Város -> Étterem -> Város)
                     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
                 });
 
             builder.Services.AddEndpointsApiExplorer();
 
-            // SWAGGER KONFIGURÁCIÓ (Bearer Token támogatással)
             builder.Services.AddSwaggerGen(options =>
             {
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -76,7 +68,6 @@ namespace eurotrip
 
             var app = builder.Build();
 
-            // --- MIDDLEWARE SORREND (Ez kritikus a CORS miatt!) ---
 
             if (app.Environment.IsDevelopment())
             {
@@ -97,7 +88,6 @@ namespace eurotrip
             app.Run();
         }
 
-        // JWT és Authorization segédmetódus
         private static void AddJwtAuthentication(WebApplicationBuilder builder, TokenManager tm)
         {
             var jwtConf = builder.Configuration.GetSection("Auth:JWT");

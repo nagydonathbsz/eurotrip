@@ -9,7 +9,6 @@ namespace eurotrip.Auth
     {
         public static string HashPassword(string password)
         {
-            // Salt generálása
             byte[] salt = RandomNumberGenerator.GetBytes(16);
 
             var argon2 = new Argon2id(Encoding.UTF8.GetBytes(password))
@@ -22,7 +21,6 @@ namespace eurotrip.Auth
 
             byte[] hash = argon2.GetBytes(32);
 
-            // Salt + hash Base64-be kódolva
             return $"{Convert.ToBase64String(salt)}.{Convert.ToBase64String(hash)}";
         }
 

@@ -53,22 +53,19 @@ namespace eurotrip.Controllers
                 string.IsNullOrWhiteSpace(user.Password) ||
                 string.IsNullOrWhiteSpace(user.Email)) return BadRequest("Hiányzó adatok!");
 
-            // 1. Ellenőrizzük, létezik-e már a felhasználónév VAGY az email
             var existingUser = await _context.Users
                 .FirstOrDefaultAsync(u => u.Name == user.Name || u.Email == user.Email);
 
             if (existingUser != null)
             {
-                // Pontosabb hibaüzenet (opcionális)
                 if (existingUser.Email == user.Email)
                     return BadRequest("Ez az email cím már regisztrálva van!");
 
                 return BadRequest("Ez a felhasználónév már foglalt!");
             }
 
-            // 2. Jelszó hashelése és mentés
             user.Password = PasswordHandler.HashPassword(user.Password);
-            user.isAdmin = 0; // Biztonság kedvéért kényszerítsük sima felhasználónak
+            user.isAdmin = 0;
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();

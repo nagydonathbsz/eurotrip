@@ -59,6 +59,8 @@ namespace eurotrip.Controllers
                 return BadRequest("A foglalás nem lehet a múltban.");
             if (tr.ReservationStart > now.AddMonths(6))
                 return BadRequest("A foglalás legfeljebb 6 hónapra előre lehetséges.");
+            if (tr.ReservationStart.Hour < 10 || tr.ReservationStart.Hour >= 20)
+                return BadRequest("Foglalás csak 10:00 és 20:00 között lehetséges.");
 
             bool overlap = await _context.TableReservations.AnyAsync(r =>
                 r.TableId == tr.TableId &&
