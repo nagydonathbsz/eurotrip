@@ -17,7 +17,7 @@ namespace eurotrip
 
             var connectionString = builder.Configuration.GetConnectionString("eurotrip");
             if (string.IsNullOrEmpty(connectionString))
-                throw new ArgumentNullException("Adatbázis csatlakozási karakterlánc hiányzik!");
+                throw new InvalidOperationException("AdatbÃ¡zis csatlakozÃ¡si karakterlÃ¡nc hiÃ¡nyzik!");
 
             builder.Services.AddDbContext<EuroContext>(options =>
                 options.UseMySQL(connectionString));
@@ -26,7 +26,7 @@ namespace eurotrip
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowReact",
-                    policy => policy.WithOrigins("http:
+                    policy => policy.WithOrigins("http://localhost:5173")
                                    .AllowAnyMethod()
                                    .AllowAnyHeader());
             });
@@ -77,7 +77,7 @@ namespace eurotrip
 
             app.UseHttpsRedirection();
 
-            // A CORS-nak az auth elõtt kell lennie!
+            // A CORS-nak az auth elï¿½tt kell lennie!
             app.UseCors("AllowReact");
 
             app.UseAuthentication();
