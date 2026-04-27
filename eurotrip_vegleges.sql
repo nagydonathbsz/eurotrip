@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2026. Ápr 22. 21:22
+-- Létrehozás ideje: 2026. Ápr 27. 11:46
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -29,15 +29,13 @@ USE `eurotrip`;
 -- Tábla szerkezet ehhez a táblához `accommodation`
 --
 
-CREATE TABLE IF NOT EXISTS `accommodation` (
+CREATE TABLE `accommodation` (
   `accommodation_id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `address` varchar(150) NOT NULL,
   `image` varchar(100) DEFAULT NULL,
   `city_id` int(11) NOT NULL,
-  `rating` decimal(2,1) DEFAULT 3.0,
-  PRIMARY KEY (`accommodation_id`),
-  KEY `city_id` (`city_id`)
+  `rating` decimal(2,1) DEFAULT 3.0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -933,13 +931,11 @@ INSERT INTO `accommodation` (`accommodation_id`, `name`, `address`, `image`, `ci
 -- Tábla szerkezet ehhez a táblához `city`
 --
 
-CREATE TABLE IF NOT EXISTS `city` (
+CREATE TABLE `city` (
   `city_id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `zip_code` int(11) NOT NULL,
-  `country_id` int(11) NOT NULL,
-  PRIMARY KEY (`city_id`),
-  KEY `country_id` (`country_id`)
+  `country_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -998,12 +994,11 @@ INSERT INTO `city` (`city_id`, `name`, `zip_code`, `country_id`) VALUES
 -- Tábla szerkezet ehhez a táblához `country`
 --
 
-CREATE TABLE IF NOT EXISTS `country` (
+CREATE TABLE `country` (
   `country_id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `language` varchar(50) NOT NULL,
-  `phone_number` varchar(10) NOT NULL,
-  PRIMARY KEY (`country_id`)
+  `phone_number` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -1062,15 +1057,13 @@ INSERT INTO `country` (`country_id`, `name`, `language`, `phone_number`) VALUES
 -- Tábla szerkezet ehhez a táblához `restaurant`
 --
 
-CREATE TABLE IF NOT EXISTS `restaurant` (
+CREATE TABLE `restaurant` (
   `restaurant_id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `address` varchar(150) NOT NULL,
   `image` varchar(100) DEFAULT NULL,
   `city_id` int(11) NOT NULL,
-  `rating` decimal(2,1) DEFAULT 3.0,
-  PRIMARY KEY (`restaurant_id`),
-  KEY `city_id` (`city_id`)
+  `rating` decimal(2,1) DEFAULT 3.0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -1966,12 +1959,10 @@ INSERT INTO `restaurant` (`restaurant_id`, `name`, `address`, `image`, `city_id`
 -- Tábla szerkezet ehhez a táblához `restauranttable`
 --
 
-CREATE TABLE IF NOT EXISTS `restauranttable` (
+CREATE TABLE `restauranttable` (
   `table_id` int(11) NOT NULL,
   `restaurant_id` int(11) NOT NULL,
-  `seats` int(11) NOT NULL DEFAULT 2,
-  PRIMARY KEY (`table_id`),
-  KEY `restaurant_id` (`restaurant_id`)
+  `seats` int(11) NOT NULL DEFAULT 2
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -15189,14 +15180,12 @@ INSERT INTO `restauranttable` (`table_id`, `restaurant_id`, `seats`) VALUES
 -- Tábla szerkezet ehhez a táblához `room`
 --
 
-CREATE TABLE IF NOT EXISTS `room` (
+CREATE TABLE `room` (
   `room_id` int(11) NOT NULL,
   `accommodation_id` int(11) NOT NULL,
   `room_number` varchar(10) DEFAULT NULL,
   `capacity` int(11) NOT NULL DEFAULT 1,
-  `price` decimal(10,2) DEFAULT NULL,
-  PRIMARY KEY (`room_id`),
-  KEY `accommodation_id` (`accommodation_id`)
+  `price` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -26657,20 +26646,16 @@ INSERT INTO `room` (`room_id`, `accommodation_id`, `room_number`, `capacity`, `p
 -- Tábla szerkezet ehhez a táblához `roombooking`
 --
 
-CREATE TABLE IF NOT EXISTS `roombooking` (
-  `booking_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `roombooking` (
+  `booking_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `room_id` int(11) NOT NULL,
   `check_in` datetime NOT NULL,
   `check_out` datetime NOT NULL,
   `rating` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
-  `status` enum('free','booked') DEFAULT 'free',
-  PRIMARY KEY (`booking_id`),
-  KEY `user_id` (`user_id`),
-  KEY `room_id` (`room_id`),
-  KEY `idx_roombooking_room_time` (`room_id`,`check_in`,`check_out`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `status` enum('free','booked') DEFAULT 'free'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -26678,19 +26663,15 @@ CREATE TABLE IF NOT EXISTS `roombooking` (
 -- Tábla szerkezet ehhez a táblához `tablereservation`
 --
 
-CREATE TABLE IF NOT EXISTS `tablereservation` (
-  `reservation_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tablereservation` (
+  `reservation_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `table_id` int(11) NOT NULL,
   `reservation_start` datetime NOT NULL,
   `reservation_end` datetime NOT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
-  `status` enum('free','booked') DEFAULT 'free',
-  PRIMARY KEY (`reservation_id`),
-  KEY `user_id` (`user_id`),
-  KEY `table_id` (`table_id`),
-  KEY `idx_tablereservation_table_time` (`table_id`,`reservation_start`,`reservation_end`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `status` enum('free','booked') DEFAULT 'free'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -26698,17 +26679,15 @@ CREATE TABLE IF NOT EXISTS `tablereservation` (
 -- Tábla szerkezet ehhez a táblához `user`
 --
 
-CREATE TABLE IF NOT EXISTS `user` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `user` (
+  `user_id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `password` varchar(100) NOT NULL,
   `is_admin` tinyint(1) NOT NULL,
-  `token` varchar(1024) DEFAULT NULL,
-  PRIMARY KEY (`user_id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `token` varchar(1024) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- A tábla adatainak kiíratása `user`
@@ -26718,7 +26697,100 @@ INSERT INTO `user` (`user_id`, `name`, `email`, `phone`, `password`, `is_admin`,
 (5, 'Mucza János', 'muczaj9@gmail.com', '+36306397871', '9Rkm/PLi2IhQNDiToGnVMA==.75KTa8HtGaP3N7A9raVWf5ocv9zgVBVM7wTiWbc+xVw=', 1, NULL),
 (6, 'mucza', '123@gmail.com', '+36306397871', 'dW4U6bhVJsrsM4rPDryukQ==.q/SpqnLaQnl6LFYnij78vx6HXWI35votpfPlLoyBVck=', 0, NULL),
 (8, 'Németh Áron', 'kissgeza@gmail.com', '+363063921312', 'hl/rkI26qbcBGgJMhmJMkw==.ynn3wj5Zc5wHxyNLNtgFkp1N/02xtqf7E10zhOlWJTo=', 0, NULL),
-(11, 'Nagy Donát', 'asd@gmail.com', '1234567', 'yQ+XMSzy+WqOgSmig/5JXw==.drJWRCaGjTQ1NZ7vJY2I0B9R1A1Rl3K8VNnUZpFx2uQ=', 0, NULL);
+(11, 'Nagy Donát', 'asd@gmail.com', '1234567', 'yQ+XMSzy+WqOgSmig/5JXw==.drJWRCaGjTQ1NZ7vJY2I0B9R1A1Rl3K8VNnUZpFx2uQ=', 0, NULL),
+(12, 'Példa Ferenc', 'pelda@gmail.com', '+36301234567', 'tcvqtWVeSiSahfJ0wl2POQ==.P2J9K73KNsSbLbSnDWWKVQ1RQgis7NYLG2u/WZ4DaL0=', 0, NULL);
+
+--
+-- Indexek a kiírt táblákhoz
+--
+
+--
+-- A tábla indexei `accommodation`
+--
+ALTER TABLE `accommodation`
+  ADD PRIMARY KEY (`accommodation_id`),
+  ADD KEY `city_id` (`city_id`);
+
+--
+-- A tábla indexei `city`
+--
+ALTER TABLE `city`
+  ADD PRIMARY KEY (`city_id`),
+  ADD KEY `country_id` (`country_id`);
+
+--
+-- A tábla indexei `country`
+--
+ALTER TABLE `country`
+  ADD PRIMARY KEY (`country_id`);
+
+--
+-- A tábla indexei `restaurant`
+--
+ALTER TABLE `restaurant`
+  ADD PRIMARY KEY (`restaurant_id`),
+  ADD KEY `city_id` (`city_id`);
+
+--
+-- A tábla indexei `restauranttable`
+--
+ALTER TABLE `restauranttable`
+  ADD PRIMARY KEY (`table_id`),
+  ADD KEY `restaurant_id` (`restaurant_id`);
+
+--
+-- A tábla indexei `room`
+--
+ALTER TABLE `room`
+  ADD PRIMARY KEY (`room_id`),
+  ADD KEY `accommodation_id` (`accommodation_id`);
+
+--
+-- A tábla indexei `roombooking`
+--
+ALTER TABLE `roombooking`
+  ADD PRIMARY KEY (`booking_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `room_id` (`room_id`),
+  ADD KEY `idx_roombooking_room_time` (`room_id`,`check_in`,`check_out`);
+
+--
+-- A tábla indexei `tablereservation`
+--
+ALTER TABLE `tablereservation`
+  ADD PRIMARY KEY (`reservation_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `table_id` (`table_id`),
+  ADD KEY `idx_tablereservation_table_time` (`table_id`,`reservation_start`,`reservation_end`);
+
+--
+-- A tábla indexei `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`user_id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- A kiírt táblák AUTO_INCREMENT értéke
+--
+
+--
+-- AUTO_INCREMENT a táblához `roombooking`
+--
+ALTER TABLE `roombooking`
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT a táblához `tablereservation`
+--
+ALTER TABLE `tablereservation`
+  MODIFY `reservation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT a táblához `user`
+--
+ALTER TABLE `user`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Megkötések a kiírt táblákhoz
