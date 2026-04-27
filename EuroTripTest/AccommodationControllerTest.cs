@@ -104,7 +104,6 @@ namespace EuroTripTest
             {
                 Name = "Dalmás",
                 Address="d",
-                Phone="06",
                 Image="d.png",
                 CityId=3,
             };
@@ -119,7 +118,6 @@ namespace EuroTripTest
             {
                 Name = "Dalmás",
                 Address = "",
-                Phone = "06",
                 Image = "d.png",
                 CityId = 3,
             };
@@ -134,7 +132,6 @@ namespace EuroTripTest
             {
                 Name = "AlbertHotel",
                 Address = "a",
-                Phone = "06",
                 Image = "a.png",
                 CityId = 1,
             };

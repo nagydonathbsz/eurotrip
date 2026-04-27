@@ -11,8 +11,8 @@ namespace EuroTripTest
                x?.Id == y?.Id &&
                x?.UserId == y?.UserId &&
                x?.TableId == y?.TableId &&
-               x?.ResDate == y?.ResDate &&
-               x?.ResTime == y?.ResTime &&
+               x?.ReservationStart == y?.ReservationStart &&
+               x?.ReservationEnd == y?.ReservationEnd &&
                x?.CreatedAt == y?.CreatedAt &&
                x?.Status==y?.Status;
         }
