@@ -1,0 +1,1326 @@
+:root {
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --accent: #14b8a6;
+    --accent-hover: #0f766e;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --white: #ffffff;
+    --error: #ef4444;
+    --success: #22c55e;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+    --radius: 16px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    width: 100%;
+    flex: 1;
+}
+
+/* =========================================
+   2. NAVBAR (Navigáció)
+   ========================================= */
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    background: var(--card-bg);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar .nav-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0 16px 0 56px;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    align-items: center;
+    margin-left: auto;
+}
+
+.nav-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-weight: 600;
+    cursor: pointer;
+    padding: 8px 16px;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+.nav-btn a {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+    width: 100%;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+}
+
+.nav-btn:hover {
+    color: var(--primary);
+    background-color: #eff6ff;
+}
+
+.login-link {
+    background-color: var(--primary);
+    color: var(--white) !important;
+}
+
+.login-link:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.logout-link {
+    color: var(--error);
+    border: 1px solid var(--error);
+}
+
+.logout-link:hover {
+    background-color: #fef2f2;
+    color: var(--error);
+}
+
+/* =========================================
+   3. HOME (Kezdőlap)
+   ========================================= */
+.home-hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(rgba(30, 41, 59, 0.7), rgba(30, 41, 59, 0.7)),
+                url(./photo-1476514525535-07fb3b4ae5f1.avif);
+    background-size: cover;
+    background-position: center;
+    color: var(--white);
+    box-shadow: var(--shadow-md);
+}
+
+.home-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.home-hero p {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 24px;
+    opacity: 0.9;
+}
+
+.explore-btn {
+    padding: 16px 40px;
+    font-size: 1.1rem;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(69, 162, 224, 0.4);
+}
+
+.explore-btn:hover {
+    background: var(--accent-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(69, 152, 230, 0.6);
+}
+
+/* =========================================
+   4. DASHBOARD (Város kereső)
+   ========================================= */
+.page-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.page-header h1 {
+    color: var(--primary);
+    font-size: 2.5rem;
+}
+
+.search-bar {
+    margin: 0 auto 40px;
+    max-width: 600px;
+    position: relative;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 16px 24px;
+    border-radius: 50px;
+    border: 2px solid #e2e8f0;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s;
+    background-color: var(--white);
+    box-shadow: var(--shadow-sm);
+}
+
+.search-bar input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    padding-bottom: 40px;
+    align-items: start;
+}
+
+.loading-spinner-wrapper {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    padding: 60px 0;
+}
+
+.loading-spinner {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #e2e8f0;
+    border-top-color: #3b82f6;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.city-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #f1f5f9;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.city-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.city-card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+.card-content {
+    padding: 24px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-content h2 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: var(--text-main);
+}
+
+.badge {
+    align-self: flex-start;
+    background: #e0f2fe;
+    color: var(--primary);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: auto;
+}
+
+/* =========================================
+   5. CITY DETAILS (Részletes nézet) & KÁRTYÁK
+   ========================================= */
+.city-details-page {
+    flex: 1;
+}
+
+.city-hero {
+    width: 100%;
+    height: 280px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.city-hero-back {
+    position: absolute;
+    top: 20px;
+    left: 24px;
+    color: white;
+    border: 2px solid rgba(255,255,255,0.85);
+    background: rgba(0,0,0,0.45);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 8px 18px;
+    backdrop-filter: blur(4px);
+}
+
+.city-hero-back:hover {
+    background: rgba(0,0,0,0.7);
+    border-color: white;
+    color: white;
+    transform: translateX(-2px);
+}
+
+.city-hero-title {
+    color: white;
+    font-size: 2.8rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.7);
+    margin: 0;
+}
+
+.city-details-body {
+    padding-top: 12px;
+    padding-bottom: 40px;
+}
+
+.tab-menu {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    background: #e2e8f0;
+    padding: 6px;
+    border-radius: 50px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tab-menu button {
+    padding: 10px 30px;
+    border-radius: 40px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text-muted);
+    transition: all 0.3s;
+}
+
+.tab-menu button.active {
+    background: var(--white);
+    color: var(--primary);
+    box-shadow: var(--shadow-sm);
+}
+
+.sub-card {
+    background: var(--white);
+    padding: 25px;
+    border-radius: var(--radius);
+    border: 1px solid #e2e8f0;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.sub-card:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-md);
+}
+
+.sub-card h3 {
+    color: var(--primary);
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.image-wrapper {
+    position: relative;
+    margin: -25px -25px 16px -25px;
+    width: calc(100% + 50px);
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f5f9;
+    overflow: hidden;
+}
+
+.dynamic-card-img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.img-loading {
+    opacity: 0;
+    position: absolute;
+}
+
+.img-loaded {
+    opacity: 1;
+}
+
+.book-btn {
+    margin-top: auto;
+    width: 100%;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.book-btn:hover {
+    background: var(--primary-hover);
+}
+
+.city-details-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+    margin-top: 28px;
+    width: 100%;
+}
+
+.city-details-controls .tab-menu {
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 35px;
+    justify-content: center;
+}
+
+.rating-filter {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.rating-filter-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-right: 2px;
+}
+
+.rating-filter-btn {
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+    background: var(--white);
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.rating-filter-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.rating-filter-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--white);
+}
+
+.star-rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    margin: 6px 0 12px;
+}
+
+.star {
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.star.filled {
+    color: #f59e0b;
+}
+
+.star.half {
+    color: #f59e0b;
+    opacity: 0.6;
+}
+
+.star.empty {
+    color: #e2e8f0;
+}
+
+.rating-value {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-left: 4px;
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    background: transparent;
+    color: var(--text-muted);
+    border: 2px solid #e2e8f0;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: all 0.2s;
+}
+
+.back-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+@keyframes spin-animation {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* =========================================
+   6. LOGIN & REGISTER (Bejelentkezés)
+   ========================================= */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 20px;
+}
+
+.login-card {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 24px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: var(--shadow-lg);
+}
+
+.login-title {
+    text-align: center;
+    color: var(--text-main);
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.login-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--primary), #3b82f6);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 10px;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.error-msg {
+    background: #fef2f2;
+    color: var(--error);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+    border: 1px solid #fecaca;
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.switch-btn {
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* =========================================
+   7. PROFILE (Profil oldal)
+   ========================================= */
+.profile-card {
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.profile-admin-badge {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: var(--white);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.profile-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 28px;
+}
+
+.profile-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.profile-field-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.profile-field-value {
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.profile-empty {
+    color: var(--text-muted);
+    font-style: italic;
+    font-weight: 400;
+}
+
+.profile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.profile-cancel-btn {
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    color: var(--text-muted);
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.profile-cancel-btn:hover {
+    border-color: var(--text-muted);
+    color: var(--text-main);
+}
+
+.profile-success-msg {
+    background: #f0fdf4;
+    color: var(--success);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+    border: 1px solid #bbf7d0;
+}
+
+.field-error {
+    color: var(--error);
+    font-size: 0.85rem;
+    margin-top: 6px;
+}
+
+/* =========================================
+   8. FOOTER (Lábléc)
+   ========================================= */
+.site-footer {
+    background: var(--text-main);
+    color: #cbd5e1;
+    padding: 14px 0 8px;
+    margin-top: auto;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-section h3 {
+    color: var(--white);
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+}
+
+.footer-section p {
+    font-size: 0.8rem;
+    line-height: 1.6;
+}
+
+.social-links {
+    display: flex;
+    gap: 12px;
+    font-size: 1rem;
+}
+
+.social-links a {
+    color: #cbd5e1;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: var(--accent);
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.75rem;
+}
+
+/* =========================================
+   9. ACCOMMODATION & RESTAURANT DETAILS
+   ========================================= */
+.detail-hero {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    margin-bottom: 24px;
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.detail-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    color: white;
+}
+
+.hero-text h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.detail-info {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 32px;
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+.section-title {
+    font-size: 1.6rem;
+    color: var(--primary);
+    margin-bottom: 24px;
+}
+
+.booking-form {
+    margin-top: 16px;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 16px;
+}
+
+.date-hint {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.login-required-msg {
+    margin-top: 12px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.login-required-msg a {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* =========================================
+   10. PROFIL OLDAL
+   ========================================= */
+.profile-avatar-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: var(--white);
+    font-weight: 700;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.profile-avatar-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
+}
+
+.profile-page {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.profile-page .tab-menu {
+    margin-bottom: 32px;
+}
+
+.profile-card {
+    padding: 36px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.profile-header .login-title {
+    margin-bottom: 0;
+}
+
+.profile-admin-badge {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: var(--white);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.profile-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.profile-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.profile-field-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.profile-field-value {
+    font-size: 1rem;
+    color: var(--text-main);
+}
+
+.profile-empty {
+    color: var(--text-muted);
+    font-style: normal;
+}
+
+.profile-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.profile-cancel-btn {
+    padding: 10px 20px;
+    border-radius: var(--radius);
+    border: 1px solid #e2e8f0;
+    background: var(--white);
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.profile-cancel-btn:hover {
+    background: #f1f5f9;
+    color: var(--text-main);
+}
+
+.profile-success-msg {
+    background: #f0fdf4;
+    color: var(--success);
+    border: 1px solid #bbf7d0;
+    border-radius: var(--radius);
+    padding: 10px 16px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.bookings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.booking-card {
+    background: var(--card-bg);
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.booking-card-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.booking-delete-btn {
+    background: none;
+    border: 1px solid #fca5a5;
+    color: #ef4444;
+    border-radius: 6px;
+    padding: 4px 12px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.booking-delete-btn:hover {
+    background: #ef4444;
+    color: #fff;
+}
+
+.booking-card-info h4 {
+    color: var(--text-main);
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.booking-card-info p {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+.booking-status {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.booking-status.free {
+    background: #f0fdf4;
+    color: var(--success);
+}
+
+.booking-status.booked {
+    background: #eff6ff;
+    color: var(--primary);
+}
+
+.booking-status.default {
+    background: #f1f5f9;
+    color: var(--text-muted);
+}
+
+.empty-bookings {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-muted);
+}
+
+/* =========================================
+   11. ANIMÁCIÓK ÉS RESZPONZÍV
+   ========================================= */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.city-card, .sub-card, .login-card, .home-hero {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+@media (max-width: 768px) {
+    .container { padding: 16px; }
+
+    .navbar { padding: 0.6rem 0; }
+    .navbar .nav-container { padding: 0 12px; flex-wrap: wrap; gap: 8px; }
+    .nav-links { gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+    .nav-btn { padding: 6px 10px; font-size: 0.85rem; }
+    .theme-toggle-btn { font-size: 0.82rem; padding: 4px 8px; }
+
+    .home-hero { padding: 40px 16px; }
+    .home-hero h1 { font-size: 2rem; }
+    .home-hero p { font-size: 1rem; }
+    .explore-btn { padding: 12px 28px; font-size: 1rem; }
+
+    .page-header h1 { font-size: 1.8rem; }
+    .search-bar input { padding: 12px 16px; }
+    .grid { grid-template-columns: 1fr; gap: 20px; }
+
+    .city-hero { height: 200px; }
+    .city-hero-title { font-size: 1.6rem; }
+
+    .city-details-controls { flex-direction: column; align-items: center; gap: 12px; padding: 0 16px; }
+    .city-details-controls .tab-menu { margin-right: 0; margin-bottom: 0; }
+    .tab-menu button { padding: 8px 16px; font-size: 0.88rem; }
+    .rating-filter { justify-content: center; }
+
+    .detail-hero { height: 200px; border-radius: 12px; }
+    .hero-text { padding: 16px; }
+    .hero-text h1 { font-size: 1.4rem; }
+    .detail-info { flex-direction: column; gap: 8px; }
+    .section-title { font-size: 1.3rem; margin-bottom: 16px; }
+
+    .login-card { padding: 28px 20px; }
+    .login-title { font-size: 1.6rem; }
+
+    .profile-page { margin: 20px auto; }
+    .profile-card { padding: 24px 16px; }
+    .profile-page .tab-menu { flex-wrap: wrap; border-radius: 16px; height: auto; }
+
+    .booking-card { flex-direction: column; align-items: flex-start; gap: 12px; padding: 16px; }
+    .booking-card-actions { flex-direction: row; align-items: center; gap: 8px; }
+}
+
+@media (max-width: 480px) {
+    .container { padding: 12px; }
+    .logo { font-size: 1.2rem; }
+    .nav-btn { padding: 5px 8px; font-size: 0.8rem; }
+    .home-hero h1 { font-size: 1.6rem; }
+    .page-header h1 { font-size: 1.5rem; }
+    .city-hero-title { font-size: 1.3rem; }
+    .tab-menu button { padding: 6px 12px; font-size: 0.82rem; }
+    .login-card { padding: 24px 14px; }
+    .profile-page .tab-menu { gap: 4px; }
+    .rating-filter-btn { padding: 4px 10px; font-size: 0.78rem; }
+}
+
+/* =========================================
+   12. TÉMA KAPCSOLÓ
+   ========================================= */
+.theme-toggle-btn {
+    background: transparent;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 5px 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: border-color 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    line-height: 1;
+}
+
+.theme-toggle-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* =========================================
+   13. SÖTÉT MÓD
+   ========================================= */
+[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #0f172a;
+    --card-bg: #1e293b;
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.5);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.5);
+}
+
+[data-theme="dark"] .search-bar input,
+[data-theme="dark"] .form-group input {
+    background: var(--card-bg);
+    color: var(--text-main);
+    border-color: #334155;
+}
+
+[data-theme="dark"] .login-card { background: var(--card-bg); }
+
+[data-theme="dark"] .sub-card {
+    background: var(--card-bg);
+    border-color: #334155;
+}
+
+[data-theme="dark"] .city-card {
+    background: var(--card-bg);
+    border-color: #334155;
+}
+
+[data-theme="dark"] .tab-menu { background: #1e293b; }
+
+[data-theme="dark"] .tab-menu button.active {
+    background: #334155;
+}
+
+[data-theme="dark"] .rating-filter-btn {
+    background: var(--card-bg);
+    border-color: #334155;
+}
+
+[data-theme="dark"] .back-btn { border-color: #334155; }
+
+[data-theme="dark"] .booking-card {
+    background: var(--card-bg);
+    border-color: #334155;
+}
+
+[data-theme="dark"] .booking-form { border-top-color: #334155; }
+[data-theme="dark"] .login-footer { border-top-color: #334155; }
+[data-theme="dark"] .profile-field { border-bottom-color: #334155; }
+
+[data-theme="dark"] .loading-spinner {
+    border-color: #334155;
+    border-top-color: #3b82f6;
+}
+
+[data-theme="dark"] .image-wrapper { background-color: #334155; }
+[data-theme="dark"] .star.empty { color: #475569; }
+
+[data-theme="dark"] .nav-btn:hover { background-color: #1e293b; }
+[data-theme="dark"] .logout-link:hover { background-color: rgba(239,68,68,0.1); }
+[data-theme="dark"] .theme-toggle-btn { border-color: #334155; }
+
+[data-theme="dark"] .profile-cancel-btn {
+    background: var(--card-bg);
+    border-color: #334155;
+}
+
+[data-theme="dark"] .profile-cancel-btn:hover {
+    background: #334155;
+    color: var(--text-main);
+}
+
+[data-theme="dark"] .badge { background: #1e3a5f; }
+
+[data-theme="dark"] .error-msg {
+    background: rgba(239,68,68,0.1);
+    border-color: rgba(239,68,68,0.3);
+}
+
+[data-theme="dark"] .profile-success-msg {
+    background: rgba(34,197,94,0.1);
+    border-color: rgba(34,197,94,0.3);
+}
+
+[data-theme="dark"] .booking-status.free { background: rgba(34,197,94,0.1); }
+[data-theme="dark"] .booking-status.booked { background: rgba(37,99,235,0.1); }
+[data-theme="dark"] .booking-status.default { background: #334155; }
+
+[data-theme="dark"] .site-footer { background: #020617; }
+[data-theme="dark"] .detail-hero img { opacity: 0.85; }
