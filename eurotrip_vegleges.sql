@@ -986,7 +986,7 @@ INSERT INTO `city` (`city_id`, `name`, `zip_code`, `country_id`) VALUES
 (37, 'Kijev', 1001, 37),
 (38, 'Nikózia', 1000, 38),
 (39, 'Monaco', 98000, 39),
-(40, 'Andorra Vella', 500, 40),
+(40, 'Vella', 500, 40),
 (41, 'Vaduz', 9490, 41),
 (42, 'San Marino', 47890, 42),
 (43, 'Vatikán', 120, 43),
